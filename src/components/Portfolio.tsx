@@ -16,6 +16,14 @@ const projects = [
     gradient: 'from-brand-green to-brand-dark-3',
   },
   {
+    title: 'AgroX DRS',
+    desc: 'Sistema de gestión agrícola integral para productores bolivianos. Dashboard en tiempo real con rendimiento de cultivos, clima, inventario y finanzas por propiedad — toda la operación del campo en una sola plataforma.',
+    tags: ['AgriTech', 'SaaS', 'React', 'Dashboard'],
+    gradient: 'from-green-900/50 to-brand-dark-2',
+    link: 'https://342838-8c7d3bb7505c4c3baf62576e19387e51-6-latest.app.mgx.dev/dashboard',
+    image: '/portfolio/agrox.png',
+  },
+  {
     title: 'INAGRO Bolivia',
     desc: 'Landing page de alta conversión para el distribuidor oficial de drones agrícolas GTEEX en Bolivia. Posicionamos su tecnología de precisión RTK y hasta 60 ha/h de productividad para conquistar el mercado agro boliviano.',
     tags: ['Landing', 'HTML/CSS', 'Conversión', 'AgriTech'],
@@ -58,7 +66,7 @@ export function Portfolio() {
         </motion.div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {projects.map((project, i) => (
             <motion.div
               key={project.title}
