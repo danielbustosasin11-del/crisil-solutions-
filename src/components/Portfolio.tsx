@@ -3,6 +3,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { ExternalLink } from 'lucide-react'
+import Image from 'next/image'
 import { ERP_LINK } from '@/lib/data'
 
 const projects = [
@@ -11,6 +12,7 @@ const projects = [
     desc: 'Sistema operativo empresarial para PyMEs bolivianas. Ventas, inventario, producción y finanzas en una sola plataforma.',
     tags: ['ERP', 'SaaS', 'React', 'Supabase'],
     link: ERP_LINK,
+    image: '/portfolio/crisil-os.png',
     gradient: 'from-brand-green to-brand-dark-3',
   },
   {
@@ -19,6 +21,7 @@ const projects = [
     tags: ['Landing', 'HTML/CSS', 'Conversión', 'AgriTech'],
     gradient: 'from-green-900/50 to-brand-dark-2',
     link: 'https://inagrobol.netlify.app',
+    image: '/portfolio/inagro.png',
   },
   {
     title: 'Crisil Studio Shop',
@@ -26,6 +29,7 @@ const projects = [
     tags: ['E-commerce', 'Tienda Online', 'Lovable', 'Landing'],
     gradient: 'from-amber-900/50 to-brand-dark-2',
     link: 'https://crisilstudio.lovable.app',
+    image: '/portfolio/crisil-studio.png',
   },
 ]
 
@@ -63,11 +67,15 @@ export function Portfolio() {
               transition={{ duration: 0.5, delay: i * 0.1 }}
               className="group relative rounded-2xl overflow-hidden border border-brand-gold/20 hover:border-brand-gold/50 transition-all duration-300"
             >
-              {/* Gradient background */}
-              <div className={`h-48 bg-gradient-to-br ${project.gradient} flex items-center justify-center`}>
-                <span className="font-black text-2xl text-white/20 uppercase tracking-widest">
-                  {project.title}
-                </span>
+              {/* Preview image */}
+              <div className="relative h-48 overflow-hidden">
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className={`absolute inset-0 bg-gradient-to-t ${project.gradient} opacity-30`} />
               </div>
 
               {/* Content */}
