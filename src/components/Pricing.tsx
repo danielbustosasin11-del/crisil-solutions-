@@ -1,7 +1,5 @@
 'use client'
 
-import { useState } from 'react'
-import { motion } from 'framer-motion'
 import { Check, Star } from 'lucide-react'
 import { AnimatedSection } from './ui/AnimatedSection'
 import { WHATSAPP_LINK } from '@/lib/data'
@@ -9,48 +7,46 @@ import { WHATSAPP_LINK } from '@/lib/data'
 const plans = [
   {
     name: 'Starter',
-    monthly: 800,
-    annual: 640,
-    users: 'Hasta 3',
+    users: 'Hasta 5 usuarios',
+    implementation: 'Bs. 599',
+    monthly: 'Bs. 149',
     modules: 'Ventas + Inventario',
     support: 'Email',
     customDashboard: false,
     onboarding: false,
     cta: 'Empezar',
     popular: false,
-    ctaLabel: undefined as string | undefined,
+    enterprise: false,
   },
   {
     name: 'Profesional',
-    monthly: 1500,
-    annual: 1200,
-    users: 'Hasta 15',
+    users: 'Hasta 20 usuarios',
+    implementation: 'Bs. 1.200',
+    monthly: 'Bs. 349',
     modules: 'Todos los módulos',
     support: 'Email + WhatsApp',
     customDashboard: true,
     onboarding: true,
     cta: 'Empezar Ahora',
     popular: true,
-    ctaLabel: undefined as string | undefined,
+    enterprise: false,
   },
   {
     name: 'Enterprise',
-    monthly: null as number | null,
-    annual: null as number | null,
-    users: 'Ilimitado',
+    users: 'Usuarios ilimitados',
+    implementation: 'Bs. 2.500+',
+    monthly: 'Desde Bs. 699',
     modules: 'Todos + custom',
     support: 'Dedicado',
     customDashboard: true,
     onboarding: true,
-    ctaLabel: 'Premium' as string | undefined,
     cta: 'Hablar con ventas',
     popular: false,
+    enterprise: true,
   },
 ]
 
 export function Pricing() {
-  const [annual, setAnnual] = useState(false)
-
   return (
     <section id="precios" className="py-24 bg-brand-dark-2">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -64,27 +60,6 @@ export function Pricing() {
             <br />
             RECUPERA SOLA
           </h2>
-
-          {/* Toggle */}
-          <div className="inline-flex items-center gap-3 bg-brand-dark border border-brand-gold/20 rounded-full p-1 mt-4">
-            <button
-              onClick={() => setAnnual(false)}
-              className={`px-5 py-2 rounded-full text-sm font-semibold transition-all ${
-                !annual ? 'bg-brand-gold text-brand-dark' : 'text-gray-400'
-              }`}
-            >
-              Mensual
-            </button>
-            <button
-              onClick={() => setAnnual(true)}
-              className={`px-5 py-2 rounded-full text-sm font-semibold transition-all ${
-                annual ? 'bg-brand-gold text-brand-dark' : 'text-gray-400'
-              }`}
-            >
-              Anual
-              <span className="ml-1 text-xs text-green-400">−20%</span>
-            </button>
-          </div>
         </AnimatedSection>
 
         {/* Plans */}
@@ -106,32 +81,32 @@ export function Pricing() {
                   </div>
                 )}
 
-                <h3 className="font-black text-2xl mb-2">{plan.name}</h3>
+                <h3 className="font-black text-2xl mb-1">{plan.name}</h3>
+                <p className="text-gray-500 text-sm mb-6">{plan.users}</p>
 
-                {/* Price */}
-                <div className="mb-6">
-                  {plan.monthly ? (
-                    <motion.div key={annual ? 'annual' : 'monthly'} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-                      <span className="font-black text-4xl text-brand-gold">
-                        Bs. {annual ? plan.annual : plan.monthly}
-                      </span>
+                {/* Pricing */}
+                <div className="flex flex-col gap-3 mb-6 p-4 rounded-xl bg-white/5 border border-brand-gold/10">
+                  <div className="flex items-center justify-between">
+                    <span className="text-gray-400 text-sm">Implementación</span>
+                    <span className="font-black text-lg text-white">{plan.implementation}</span>
+                  </div>
+                  <div className="border-t border-brand-gold/10" />
+                  <div className="flex items-center justify-between">
+                    <span className="text-gray-400 text-sm">Mensual</span>
+                    <div className="text-right">
+                      <span className="font-black text-2xl text-brand-gold">{plan.monthly}</span>
                       <span className="text-gray-400 text-sm">/mes</span>
-                    </motion.div>
-                  ) : (
-                    <span className="font-black text-3xl text-brand-gold">A medida</span>
-                  )}
+                    </div>
+                  </div>
                 </div>
 
                 {/* Features */}
                 <ul className="space-y-3 mb-8 flex-1">
                   {[
-                    `Usuarios: ${plan.users}`,
                     `Módulos: ${plan.modules}`,
                     `Soporte: ${plan.support}`,
                     plan.customDashboard ? 'Dashboard custom ✓' : 'Dashboard custom ✗',
-                    plan.onboarding
-                      ? `Onboarding${plan.ctaLabel === 'Premium' ? ' Premium' : ''} ✓`
-                      : 'Onboarding ✗',
+                    plan.onboarding ? 'Onboarding incluido ✓' : 'Onboarding ✗',
                   ].map((feature) => (
                     <li key={feature} className="flex items-center gap-2 text-sm text-gray-300">
                       <Check size={14} className="text-brand-gold flex-shrink-0" />
@@ -142,9 +117,9 @@ export function Pricing() {
 
                 {/* CTA */}
                 <a
-                  href={plan.name === 'Enterprise' ? WHATSAPP_LINK : '#contacto'}
-                  target={plan.name === 'Enterprise' ? '_blank' : undefined}
-                  rel={plan.name === 'Enterprise' ? 'noopener noreferrer' : undefined}
+                  href={plan.enterprise ? WHATSAPP_LINK : '#contacto'}
+                  target={plan.enterprise ? '_blank' : undefined}
+                  rel={plan.enterprise ? 'noopener noreferrer' : undefined}
                   className={`w-full text-center font-bold py-3 rounded-full transition-colors block ${
                     plan.popular
                       ? 'bg-brand-gold text-brand-dark hover:bg-brand-gold-light'
